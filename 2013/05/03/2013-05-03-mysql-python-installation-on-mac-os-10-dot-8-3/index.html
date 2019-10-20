@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Mac os 10.8.3如何安裝mysql_python | 雜工記錄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="其實這篇草稿早在2013&#x2F;01就寫好了。但一直到今天才有時間整理成中文…..之前在mac上直接安裝python-mysql的時候，一直出現安裝問題。所謂的安裝問題就是發現編譯套件的時候一直裝不起來，在使用的時候即使有辦法import套件但也沒有辦法使用。但因為目前工作環境需要，還是希望能夠好好找到解決方式。解決方法如下：">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac os 10.8.3如何安裝mysql_python">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.walile.info&#x2F;2013&#x2F;05&#x2F;03&#x2F;2013-05-03-mysql-python-installation-on-mac-os-10-dot-8-3&#x2F;index.html">
+<meta property="og:site_name" content="雜工記錄">
+<meta property="og:description" content="其實這篇草稿早在2013&#x2F;01就寫好了。但一直到今天才有時間整理成中文…..之前在mac上直接安裝python-mysql的時候，一直出現安裝問題。所謂的安裝問題就是發現編譯套件的時候一直裝不起來，在使用的時候即使有辦法import套件但也沒有辦法使用。但因為目前工作環境需要，還是希望能夠好好找到解決方式。解決方法如下：">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:updated_time" content="2016-05-24T06:58:19.000Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="雜工記錄" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">雜工記錄</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">work notes</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.walile.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2013-05-03-mysql-python-installation-on-mac-os-10-dot-8-3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/05/03/2013-05-03-mysql-python-installation-on-mac-os-10-dot-8-3/" class="article-date">
+  <time datetime="2013-05-02T19:28:00.000Z" itemprop="datePublished">2013-05-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mac os 10.8.3如何安裝mysql_python
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其實這篇草稿早在2013/01就寫好了。但一直到今天才有時間整理成中文…..之前在mac上直接安裝python-mysql的時候，一直出現安裝問題。所謂的安裝問題就是發現編譯套件的時候一直裝不起來，在使用的時候即使有辦法import套件但也沒有辦法使用。但因為目前工作環境需要，還是希望能夠好好找到解決方式。解決方法如下：</p>
+<a id="more"></a>
+<p>###一、首先，使用brew安裝python<br>(請記住在mac上使用brew install不要使用sudo)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install python  (update to python 2.7)</span><br></pre></td></tr></table></figure>
+
+<p>###二、安裝mysql<br>mysql是必要先被安裝的。可以選擇直接從mysql官網上下載dmg檔或是使用brew來安裝mysql</p>
+<p>###三、安裝設定<br>先從<a href="http://mysql-python.sourceforge.net/" target="_blank" rel="noopener">mysql_python</a>的官網下載source code。接下來，我們需要使用以下的方式來執行安裝：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python setup.py install</span><br></pre></td></tr></table></figure>
+<p>接下來會很自動的在編譯後進行安裝。在完成程序後，我們要測試一下是否可以使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; python</span><br><span class="line">&gt; import MySQLdb</span><br></pre></td></tr></table></figure>
+<p>第一行的作用是進入python指令模式。第二行import的語法才是測試mysql_python是否可以執行。</p>
+<p>不過有的時候，會發現某些library無法被載入。所以需要再加幾行到 .bash_profile或是.profile之中…</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MYSQL=/usr/local/mysql/bin</span><br><span class="line">export PATH=$PATH:$MYSQL</span><br><span class="line">export DYLD_LIBRARY_PATH=/usr/local/mysql/lib:$DYLD_LIBRARY_PATH</span><br></pre></td></tr></table></figure>
+
+<p>加入後，請記得要source讓設定的路徑生效。這個在mac os 10.8上是可以被運作的。</p>
+<p>如果還發生顯示像是「DYLD_LIBRARY_PATH」無法被辨示之類的問題，我們還需要再做一點處理才能讓套件正常運作。這個是個很神奇的問題。當初其實筆者自己使用的時候就是發生找不到「DYLD_LIBRARY_PATH」路徑之類的問題，苦惱了半天還找不到答案。後來，在以下這篇apple官方討論中找到了答案：<br><a href="https://discussions.apple.com/thread/4143805?start=45&tstart=0" target="_blank" rel="noopener">討論內容</a>：問題出在dyld: DYLD_ environment variables being ignored because main executable (/usr/bin/sudo) is setuid or setgid. (也是討論內容的標題)這也是造成一直無法正常使用的原因之一。處理方式請照步驟處理，可以暫時解決掉這個問題…..</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">sudo sh</span><br><span class="line"></span><br><span class="line">&lt; 接下來請鍵入密碼，然後結果會輸出 &gt;</span><br><span class="line"></span><br><span class="line">mv /usr/bin/sudo /usr/bin/sudo-real</span><br><span class="line"></span><br><span class="line">cat &gt; /usr/bin/sudo</span><br><span class="line"></span><br><span class="line">#!/bin/sh</span><br><span class="line"></span><br><span class="line">SUDU=/usr/bin/sudo-real</span><br><span class="line"></span><br><span class="line">exec $SUDU $* 2&gt;&gt; /dev/null   #一般使用者無法寫出檔案 /var/log/sudu-wrapper-output</span><br><span class="line"></span><br><span class="line">^C #不要懷疑，這行是ctrl+c進行跳出動作</span><br><span class="line"></span><br><span class="line">sh-3.2# chmod +x /usr/bin/sudo</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>這些處理的作用是多包一層sudo來解決這個問題。這個需要手動一個步驟處理即可解決問題。處理之後，就可以開心的使用mysql_python這個套件了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.walile.info/2013/05/03/2013-05-03-mysql-python-installation-on-mac-os-10-dot-8-3/" data-id="ck1ymsmrr0020157p2sdk30rz" class="article-share-link">Share</a>
+      
+        <a href="https://blog.walile.info/2013/05/03/2013-05-03-mysql-python-installation-on-mac-os-10-dot-8-3/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2013/06/14/2013-06-14-about-php-float-problem/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          關於php浮點數float以及int的問題
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2013/01/13/2013-01-13-webconf-2013-notes/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">webconf 2013 plurk Alvin演講筆記</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActionScript/" rel="tag">ActionScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache-Ant/" rel="tag">Apache Ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bazzer/" rel="tag">Bazzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS3/" rel="tag">CSS3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Capistrano/" rel="tag">Capistrano</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos/" rel="tag">Centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoffeScript/" rel="tag">CoffeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/" rel="tag">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FreeBSD/" rel="tag">FreeBSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/" rel="tag">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Laravel/" rel="tag">Laravel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MariaDB/" rel="tag">MariaDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mercurial/" rel="tag">Mercurial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Perl/" rel="tag">Perl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quercus/" rel="tag">Quercus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redmine/" rel="tag">Redmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/" rel="tag">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/" rel="tag">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sybase/" rel="tag">Sybase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vlad/" rel="tag">Vlad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebConf-2013/" rel="tag">WebConf 2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zend-Framework1/" rel="tag">Zend Framework1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery-Gride/" rel="tag">jQuery Gride</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac-os/" rel="tag">mac os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phing/" rel="tag">phing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r-language/" rel="tag">r-language</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/ActionScript/" style="font-size: 10px;">ActionScript</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Apache-Ant/" style="font-size: 10px;">Apache Ant</a> <a href="/tags/Bazzer/" style="font-size: 10px;">Bazzer</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Capistrano/" style="font-size: 10px;">Capistrano</a> <a href="/tags/Centos/" style="font-size: 10px;">Centos</a> <a href="/tags/CoffeScript/" style="font-size: 10px;">CoffeScript</a> <a href="/tags/Django/" style="font-size: 13.33px;">Django</a> <a href="/tags/FTP/" style="font-size: 10px;">FTP</a> <a href="/tags/FreeBSD/" style="font-size: 10px;">FreeBSD</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Java-Spring/" style="font-size: 10px;">Java Spring</a> <a href="/tags/Laravel/" style="font-size: 10px;">Laravel</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/MariaDB/" style="font-size: 10px;">MariaDB</a> <a href="/tags/Mercurial/" style="font-size: 10px;">Mercurial</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Perl/" style="font-size: 13.33px;">Perl</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Quercus/" style="font-size: 10px;">Quercus</a> <a href="/tags/Redmine/" style="font-size: 10px;">Redmine</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 10px;">Ruby on Rails</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a> <a href="/tags/Sybase/" style="font-size: 10px;">Sybase</a> <a href="/tags/Ubuntu/" style="font-size: 13.33px;">Ubuntu</a> <a href="/tags/Vlad/" style="font-size: 10px;">Vlad</a> <a href="/tags/WebConf-2013/" style="font-size: 10px;">WebConf 2013</a> <a href="/tags/Zend-Framework1/" style="font-size: 16.67px;">Zend Framework1</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery-Gride/" style="font-size: 10px;">jQuery Gride</a> <a href="/tags/mac-os/" style="font-size: 13.33px;">mac os</a> <a href="/tags/phing/" style="font-size: 10px;">phing</a> <a href="/tags/r-language/" style="font-size: 10px;">r-language</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">八月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">八月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">八月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">七月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/06/">六月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/01/">一月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/12/">十二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/07/">七月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/06/">六月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/05/">五月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/03/">三月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/02/">二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/01/">一月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">十二月 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/22/2018-01-22-larave5-mutiple-database-connection-configuration/">Laravel 5 Multiple Database Connection 設定</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/20/2017-12-20-mysql-mariadb-duplicate-table-command-notes/">MySQL(MariaDB)相關複製table語法注意</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/22/2017-06-22-git-command-notes/">Git指令速記</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/19/2017-06-19-frontend-develop-enviornment-configuration/">前端基本環境建置 gulp + gulp-cli + broswer-sync + gulp-less 變更自動同步瀏覽器</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/29/2017-01-29-configure-mac-os-use-zsh/">Mac OS 預設zsh</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Walile (小哇)<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'walile';
+  
+  var disqus_url = 'https://blog.walile.info/2013/05/03/2013-05-03-mysql-python-installation-on-mac-os-10-dot-8-3/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
