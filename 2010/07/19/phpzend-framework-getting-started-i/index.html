@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[php]zend framework 入門 I | 雜工記錄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Orz…又是看到一直忘記要記下來的筆記….. 因為工作需要，開始碰zend……入門就要寫簡單上手，然後，接下來開始剖析一下(謎：好像還沒真的寫到進階的文章ㄟOrz…)">
+<meta name="keywords" content="Zend Framework1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[php]zend framework 入門 I">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.walile.info&#x2F;2010&#x2F;07&#x2F;19&#x2F;phpzend-framework-getting-started-i&#x2F;index.html">
+<meta property="og:site_name" content="雜工記錄">
+<meta property="og:description" content="Orz…又是看到一直忘記要記下來的筆記….. 因為工作需要，開始碰zend……入門就要寫簡單上手，然後，接下來開始剖析一下(謎：好像還沒真的寫到進階的文章ㄟOrz…)">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:image" content="http:&#x2F;&#x2F;farm8.staticflickr.com&#x2F;7020&#x2F;6514182313_44e0979e80_z.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;farm8.staticflickr.com&#x2F;7006&#x2F;6514192121_d58c52c749_z.jpg">
+<meta property="og:updated_time" content="2016-05-24T07:00:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;farm8.staticflickr.com&#x2F;7020&#x2F;6514182313_44e0979e80_z.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="雜工記錄" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">雜工記錄</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">work notes</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.walile.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-phpzend-framework-getting-started-i" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/07/19/phpzend-framework-getting-started-i/" class="article-date">
+  <time datetime="2010-07-18T19:56:00.000Z" itemprop="datePublished">2010-07-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [php]zend framework 入門 I
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Orz…又是看到一直忘記要記下來的筆記…..</p>
+<p>因為工作需要，開始碰zend……入門就要寫簡單上手，然後，接下來開始剖析一下(謎：好像還沒真的寫到進階的文章ㄟOrz…)</p>
+<a id="more"></a>
+<p>接下來的內容將會利用Zend Framework 1.10.6來建立一個簡易的網站，一邊看教學文件為Tutorial: Getting Started with Zend Framework 1.10 by Rob Allen，並且一邊註解筆記。</p>
+<p>接下來的內容將會利用Zend Framework 1.10.6來建立一個簡易的網站。</p>
+<p>基本需求：</p>
+<blockquote>
+<p>PHP 5.2.4以上</p>
+</blockquote>
+<blockquote>
+<p>apache 需要支援mod_rewrite</p>
+</blockquote>
+<hr>
+<p>另外，需要將http.conf中的設定AllowOverride None改成AllowOverride All。而且還需要先設定讓apache可以使用.htaccess檔案進行設定。然後，先來下載zend framework。當下載後，會看到是一個壓縮的檔案(zip或tar.gz)。</p>
+<p>接下來，現在就先來設定zend tool…..</p>
+<p>其實照著教學說明中，是將剛下載回來的zend framework解壓縮後，放置在在C:Program FilesZendFrameworkCli 的資料夾之中。解開後放到ZendFrameworkCli的資料夾中，會有一個叫bin的資料夾。將這個資料夾的路徑，加到環境變數的PATH之中。正確加好後，打開command line直接打上「zf show version」後按下enter，會看到在畫面中出現所下載的zend framework的版本。</p>
+<p>在這分教學中，主要是帶領初心者製作一個可以編輯管理的CD列表。畫面上需要的，就是主畫面、編輯、刪除、新增三個部分。主畫面用來列出所有CD列表並且提供可以進行新增、修改、刪除的連結功能。所以現在我們會開始建立一個專案。利用以下的指令：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zf create project 專案名稱(資料夾名稱)</span><br></pre></td></tr></table></figure>
+
+<p>所以我們的專案叫zf-tutorial的時候，指令就是如下下法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zf create project zf-tutorial</span><br></pre></td></tr></table></figure>
+<p>當按下enter後，會看到zend framework把產生了些資料夾結構和一些檔案。其中在public資料夾中，也會含有所產生的.htaccess檔案。<br>所產生的結構如下： (有MVC結構)</p>
+<p><img src="http://farm8.staticflickr.com/7020/6514182313_44e0979e80_z.jpg" alt="Alt zendframework"></p>
+<p>其中在資料夾中會包含的檔案如下：<br><img src="http://farm8.staticflickr.com/7006/6514192121_d58c52c749_z.jpg" alt="Alt zendframework_file"></p>
+<p>在以上結構中，可以發現，如果將zend framework解開放置後，其實會讓用戶連進來的時候，網址會如同：<a href="http://localhost/zf-tutorial/public/" target="_blank" rel="noopener">http://localhost/zf-tutorial/public/</a> 才能看的到這個project底下的網頁。所以，其實可以透過將apache的httpd.conf修改，讓根目錄直接指向public資料夾，就不需要還要在網址中特意指定到public才看的到網頁。如<a href="http://127.0.0.1/" target="_blank" rel="noopener">http://127.0.0.1/</a> 就可以看的到了(其實就是設定一個virtual host)。修改方式如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DocumentRoot d:/WEB/wwwroot/zf-tutorial/<span class="keyword">public</span>/</span><br><span class="line">ServerName zf-tutorial.localhost</span><br><span class="line"></span><br><span class="line">AllowOverride All</span><br></pre></td></tr></table></figure>
+
+<p>改完後請記得重新啟動apache即生效。<br>待重新啟動後，直接打上<a href="http://127.0.0.1後，就會看到在d:/WEB/wwwroot/zf-tutorial/public/" target="_blank" rel="noopener">http://127.0.0.1後，就會看到在d:/WEB/wwwroot/zf-tutorial/public/</a> 了。<br>在目前最後，需要再將剛下載解開後的zend framework之中的library/Zend的資料夾複製一份後，放到zf-tutorial/library/之中。這樣就安裝完成了。<br>可以直接在<a href="http://127.0.0.1/" target="_blank" rel="noopener">http://127.0.0.1/</a> 之中看到zend framework的畫面….<br>在zend framework之中，首先要先了解到一個東西：Bootstrap<br>在zend framework中使用了front controller這個設計模式，在所有的request進來的時候，可以將其通過index.php設定基本參數設定，確保在每個環境設定都是一致的。而Bootstrap我們稱為引導文件(大陸譯詞)。其中，我們可以經由public/.htaccess設定一進入資料夾即執行public/index.php。<br>在public/index.php之中，可以看的到在source code部分，有像是APPLICATION_PATH路徑以及APPLICATION_ENV用來定義application資料夾以及環境設定。</p>
+<p>Zend_Application 通常是用來啟動和設定application/configs/application.ini。這個檔案是create project的時候自動產生的。另外，會看到一個叫application/Bootstrape.php，這裡頭的Bootstrape class是繼承library/Zend/Application/Bootstrap/Bootstrape.php的Zend_Application_Bootstrape_Bootstrape。而application.ini其實會存在application/configs的資料夾中，透過Zend_Config_Ini這個compoment存取。Zend_Config_Ini可以透過一個繼承的關係，去針對段落讀取處理。舉列：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[staging: production]</span><br></pre></td></tr></table></figure>
+<p>這會出現在application.ini之中，在之下到下一個有這樣的段落前，會被Zend_Config_Ini做處理。而其中在「:」之前為段落為此段落的名稱。其後代表有繼承的段落名稱。在這行代表的意思是staging段落會繼承production的段落設定。目前如果在開發過程中需要做debug，請直接在public/.htaccess的第一行加入：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SetEnv APPLICATION_ENV development</span><br></pre></td></tr></table></figure>
+
+<p>接下來要開始先來設定application.ini檔了。</p>
+<p>設定application/configs/application.ini檔案其中的時區，請設定以下項目</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">phpSettings.data.timezone = <span class="string">"Asia/Taipei"</span></span><br></pre></td></tr></table></figure>
+<p>其中”Asia/Taipei”請設定所在城市設定。基本上設定應該是和php.ini的timezone設定一樣。</p>
+<p>##URL的結構：</p>
+<p>這邊需要先解說一下URL結構的部分。因為zend framework是web mvc(何謂web mvc，請見此連結)結構。在url rewrite的時候有一些和一般不同的判讀：</p>
+<p>ex. <a href="http://localhost/zf-tutorial/public/news/view" target="_blank" rel="noopener">http://localhost/zf-tutorial/public/news/view</a></p>
+<p>在這樣的URL路徑中，public底下主要是我們會連結到的部分。而news其實是Controller，而View為為Controller之中的Action(在controller之中的method)。預設為index的部分則不會直接顯示在url之中。</p>
+<p>##正式實作：</p>
+<p>在根據教學pdf中，會實作四個畫面。分別是home、add、update、delete功能。並且利用IndexController外加四個Action(將寫在IndexController之中)實作簡單的管理CD功能。</p>
+<p>先來解說Controller的部分。一般Controller都是放在application/controllers的資料夾。命名方式為：「{名稱}Controller.php」其中Controller一定要寫，並且C要大寫。前頭加上命名名稱。而Action的部分，其實是小寫字母外加上Action為一個method。例如，已新增的Controller之中，會看到像是「addAction」為一個method的名稱。接下來，先來新增add、update、delete三個Action在indexController之中：</p>
+<p>指令如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zf create action add Index</span><br><span class="line"></span><br><span class="line">zf create action update Index</span><br><span class="line"></span><br><span class="line">zf create action delete Index</span><br></pre></td></tr></table></figure>
+
+<p>我們拿「zf create action add Index」來解釋其中意思代表 要zf建立一個action為Add的Action，並且是加在Index的Controller之中。(記得大小寫需一致)接著，在URL上的顯示，就會變成為：<a href="http://localhost/zf-tutorial/public/Index/add" target="_blank" rel="noopener">http://localhost/zf-tutorial/public/Index/add</a> 所以，在執行的時候，就會去執行IndexController的addAction這個method了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.walile.info/2010/07/19/phpzend-framework-getting-started-i/" data-id="ck2kl91rx000tix7p5nkif3jx" class="article-share-link">Share</a>
+      
+        <a href="https://blog.walile.info/2010/07/19/phpzend-framework-getting-started-i/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Zend-Framework1/" rel="tag">Zend Framework1</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2010/07/23/phpzend-framework-getting-started-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [php]zend framework 入門 II
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/06/08/spring2-and-velocity-implement-i18n/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">spring2 and velocity implement i18n</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActionScript/" rel="tag">ActionScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache-Ant/" rel="tag">Apache Ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bazzer/" rel="tag">Bazzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS3/" rel="tag">CSS3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Capistrano/" rel="tag">Capistrano</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos/" rel="tag">Centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoffeScript/" rel="tag">CoffeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBIx/" rel="tag">DBIx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dancer2/" rel="tag">Dancer2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/" rel="tag">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FreeBSD/" rel="tag">FreeBSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/" rel="tag">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Laravel/" rel="tag">Laravel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MariaDB/" rel="tag">MariaDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mercurial/" rel="tag">Mercurial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Perl/" rel="tag">Perl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quercus/" rel="tag">Quercus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redmine/" rel="tag">Redmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/" rel="tag">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/" rel="tag">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sybase/" rel="tag">Sybase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vlad/" rel="tag">Vlad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebConf-2013/" rel="tag">WebConf 2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zend-Framework1/" rel="tag">Zend Framework1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery-Gride/" rel="tag">jQuery Gride</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac-os/" rel="tag">mac os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phing/" rel="tag">phing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r-language/" rel="tag">r-language</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/ActionScript/" style="font-size: 10px;">ActionScript</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Apache-Ant/" style="font-size: 10px;">Apache Ant</a> <a href="/tags/Bazzer/" style="font-size: 10px;">Bazzer</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Capistrano/" style="font-size: 10px;">Capistrano</a> <a href="/tags/Centos/" style="font-size: 10px;">Centos</a> <a href="/tags/CoffeScript/" style="font-size: 10px;">CoffeScript</a> <a href="/tags/DBIx/" style="font-size: 10px;">DBIx</a> <a href="/tags/Dancer2/" style="font-size: 10px;">Dancer2</a> <a href="/tags/Django/" style="font-size: 13.33px;">Django</a> <a href="/tags/FTP/" style="font-size: 10px;">FTP</a> <a href="/tags/FreeBSD/" style="font-size: 10px;">FreeBSD</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Java-Spring/" style="font-size: 10px;">Java Spring</a> <a href="/tags/Laravel/" style="font-size: 10px;">Laravel</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/MariaDB/" style="font-size: 10px;">MariaDB</a> <a href="/tags/Mercurial/" style="font-size: 10px;">Mercurial</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Perl/" style="font-size: 16.67px;">Perl</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Quercus/" style="font-size: 10px;">Quercus</a> <a href="/tags/Redmine/" style="font-size: 10px;">Redmine</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 10px;">Ruby on Rails</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a> <a href="/tags/Sybase/" style="font-size: 10px;">Sybase</a> <a href="/tags/Ubuntu/" style="font-size: 13.33px;">Ubuntu</a> <a href="/tags/Vlad/" style="font-size: 10px;">Vlad</a> <a href="/tags/WebConf-2013/" style="font-size: 10px;">WebConf 2013</a> <a href="/tags/Zend-Framework1/" style="font-size: 16.67px;">Zend Framework1</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery-Gride/" style="font-size: 10px;">jQuery Gride</a> <a href="/tags/mac-os/" style="font-size: 13.33px;">mac os</a> <a href="/tags/phing/" style="font-size: 10px;">phing</a> <a href="/tags/r-language/" style="font-size: 10px;">r-language</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">八月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">八月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">八月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">七月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/06/">六月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/01/">一月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/12/">十二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/07/">七月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/06/">六月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/05/">五月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/03/">三月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/02/">二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/01/">一月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">十二月 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/04/perl-dancer2-beginning/">Dancer2與DBIx整合開發環境設定</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/22/larave5-mutiple-database-connection-configuration/">Laravel 5 Multiple Database Connection 設定</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/20/mysql-(mariadb)-duplicate-table-command-notes/">MySQL(MariaDB)相關複製table語法注意</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/22/git-command-notes/">Git指令速記</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/19/frontend-develop-enviornment-configuration/">前端基本環境建置 gulp + gulp-cli + broswer-sync + gulp-less 變更自動同步瀏覽器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Walile (小哇)<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'walile';
+  
+  var disqus_url = 'https://blog.walile.info/2010/07/19/phpzend-framework-getting-started-i/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

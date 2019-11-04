@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[jQuery]jQuery Gride 使用整理 | 雜工記錄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="工作整理，在本文中會使用jQuery Grid的使用以及使用jQuery UI還有幾個需要注意的事項。">
+<meta name="keywords" content="jQuery Gride">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[jQuery]jQuery Gride 使用整理">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.walile.info&#x2F;2010&#x2F;08&#x2F;19&#x2F;jquery-gride&#x2F;index.html">
+<meta property="og:site_name" content="雜工記錄">
+<meta property="og:description" content="工作整理，在本文中會使用jQuery Grid的使用以及使用jQuery UI還有幾個需要注意的事項。">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:image" content="http:&#x2F;&#x2F;www.trirand.com&#x2F;jqgridwiki&#x2F;lib&#x2F;exe&#x2F;fetch.php?media=wiki:griddesc.png">
+<meta property="og:updated_time" content="2016-05-24T06:59:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;www.trirand.com&#x2F;jqgridwiki&#x2F;lib&#x2F;exe&#x2F;fetch.php?media=wiki:griddesc.png">
+  
+    <link rel="alternate" href="/atom.xml" title="雜工記錄" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">雜工記錄</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">work notes</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.walile.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jquery-gride" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2010/08/19/jquery-gride/" class="article-date">
+  <time datetime="2010-08-18T21:02:00.000Z" itemprop="datePublished">2010-08-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [jQuery]jQuery Gride 使用整理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>工作整理，在本文中會使用jQuery Grid的使用以及使用jQuery UI還有幾個需要注意的事項。</p>
+<a id="more"></a>
+<p>使用版本：</p>
+<p>jQuery Grid：3.7.2版 <a href="http://www.trirand.com/blog/" target="_blank" rel="noopener">下載</a> (其實下載後，裡頭會有jQuery 1.4.2。在下載選擇的時候，因為是各模組選擇下載，但是Grid base請「務必」一定要勾選。在本次手作時，我是全勾選下載。)</p>
+<p>jQuery：1.4.2版 <a href="http://jquery.com/" target="_blank" rel="noopener">下載</a></p>
+<p>Zend Framework：1.10.7版</p>
+<p>使用步驟：</p>
+<p>STEP 1. 設定</p>
+<p>首先，先用Zend Framework建立一個專案（本範例中名稱為：test）。然後，建立一個Controller為TableController，並且先建立一個TableController使用的view。（位置於application/views/table/index.phtml 此頁為TableController的indexAction預設會讀取的頁面）。設定好後，接下來正式進入使用設定jQuery Grid的步驟：</p>
+<p>###1. 加入html至template</p>
+<p>在使用jQuery Grid的時候，需要先利用html設定好<table></table>以及<div></div>各一組，主要是讓jQuery Grid將產生出來的表格可以產生在<table></table>中，而分頁的功能部分會放在<div></div>之中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">id</span>=<span class="string">"listTable"</span>&gt;</span><span class="tag">&lt;/<span class="name">table</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"pager"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在這段html中，目前先設定table元件的id為listTable，而div元件的id為pager，等一下jQuery Grid設定好後，就會把物件放進去了XD</p>
+<p>###2. 加入jQuery library</p>
+<p>jQuery Grid需要搭配jQuery來使用。另外，因為jQueryGrid有支援jQuery UI themeRoller，所以我也把這個加進去，讓畫面比較好看點：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!– 這行表示加入jQuery Grid的樣式CSS，有一些部分在加入繁中後會有需要調整的地方，在文章後將會再處理 –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headLink()-&gt;setStylesheet(‘/js/datagrid/css/ui.jqgrid.css’, ‘screen’, <span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!– 這行表示加入jQuery UI themeRoller的sunny的CSS樣式 –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headLink()-&gt;setStylesheet(‘/js/theme/css/sunny/jquery-ui<span class="number">-1.8</span><span class="number">.4</span>.custom.css’, ‘screen’, <span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!– 這行表示加入jQuery library –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headScript()-&gt;setFile(‘/js/datatables/media/js/jquery.js’, $type=’text/javascript’, $attrs=<span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!– 這行表示加入jQuery UI的javascript –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headScript()-&gt;setFile(‘/js/theme/js/jquery-ui<span class="number">-1.8</span><span class="number">.4</span>.custom.min.js’, $type=’text/javascript’, $attrs=<span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!– 這行表示加入繁體中文語系顯示 –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headScript()-&gt;setFile(‘/js/datagrid/js/i18n/grid.locale-zh_tw.js’, $type=’text/javascript’, $attrs=<span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!– 這行表示加入jQuery Grid主要的javascript –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headScript()-&gt;setFile(‘/js/datagrid/js/jquery.jqGrid.min.js’, $type=‘text/javascript’, $attrs=<span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;!– 實作的javascript –&gt;</span><br><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> <span class="keyword">$this</span>-&gt;headScript()-&gt;setFile(‘/js/dtable.js’, $type=‘text/javascript’, $attrs=<span class="keyword">array</span>()); <span class="meta">?&gt;</span></span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;table id=<span class="string">"listTable"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;/table&gt;</span><br><span class="line">&lt;div id=<span class="string">"pager"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意事項：在jQury Grid的wiki中指出可以使用所附的grid.loader.js做include javascript的動作，就不用在html中加這麼多的文字。在使用前，請先更改該檔案中第四行的「pathtojsfiles」變數，更改成您要加入的javascript的路徑。</p>
+<p>###3.  將語系改成繁體中文</p>
+<p>因為jQuery Grid所附的i18n的library之中，語系沒有繁體中文，所以需要做一點小處理：</p>
+<p>(1). 複製一份在i18n底下的grid.locale-語系代碼.js的檔案在i18n資料夾下，並且將檔案名稱改成：grid.locale-zh_tw.js  (為了方便翻譯，我直接複製了grid.locale-cn.js這個檔案，因為這個是簡中的語系檔，直接翻譯比較快。)</p>
+<p>(2). 打開grid.locale-zh_tw.js後，直接會看到有簡中文字的部分，直接修改翻譯成需要的文字後，只要存檔後就可以使用。</p>
+<p>###4.  initial jQuery Grid</p>
+<p>jQuery Grid資料表切成幾個部分….<br><img src="http://www.trirand.com/jqgridwiki/lib/exe/fetch.php?media=wiki:griddesc.png" alt="Alt jQuery part"></p>
+<blockquote>
+<p>jQuery Grid解說 - 圖片frome <a href="http://www.trirand.com/jqgridwiki/" target="_blank" rel="noopener">http://www.trirand.com/jqgridwiki/</a></p>
+</blockquote>
+<p>照上圖來看，整個data table會分成四個部分。其中標題的地方是叫「Caption Layer」，每個欄位標題的地方是叫Header Layer。而「body layer」的地方就是顯示資料的地方，而資料的來源是利用ajax向server-side要來的。在最下方Navigation Layer的地方其實就是跟分頁顯示有關係的區塊。而這區塊其實可以加入像是「新增、編輯、顯示資料、重新整理、搜尋」的功能按鍵，會出現在區塊的左邊。</p>
+<p>接下來…我會打開dtable.js這個檔案，將Javascript寫在裡頭。(javascript不寫在html裡頭喔！)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//當一開始開啟文件ready之後就會直接執行</span></span><br><span class="line">$(<span class="string">"#listTable"</span>).jqGrid(&#123; <span class="comment">//這行表示在 #listTable這個id的物件中會執行加入jQuery Grid的物件</span></span><br><span class="line">url: <span class="string">'/Table/table/format/json/'</span>, <span class="comment">//這行url:的用意是在指定需要自那個url中撈出資料。可支援的資料有xml、json格式。</span></span><br><span class="line">datatype: <span class="string">'json'</span>, <span class="comment">//設定json為接收資料的格式，接收格式資料會在文章後說明</span></span><br><span class="line">mtype: <span class="string">'GET'</span>, <span class="comment">//設定取用資料方式為GET (也可用POST)</span></span><br><span class="line">colNames:[<span class="string">'id'</span>, <span class="string">'名稱'</span>,<span class="string">'連結'</span>,<span class="string">'備註'</span>], <span class="comment">//設定欄位要顯示的標題名稱</span></span><br><span class="line">colModel :[ <span class="comment">//從這邊開始要設定的就是跟欄位本身有關係的設定了.....</span></span><br><span class="line">&#123;<span class="attr">name</span>:<span class="string">'id'</span>, <span class="attr">index</span>:<span class="string">'id'</span>, <span class="attr">sortable</span>: <span class="literal">false</span>&#125;, <span class="comment">//設定第一個欄位為id，並且index設成id為到時候ajax回server side連結時使用的parameter。並且設定為不可做排序。</span></span><br><span class="line">&#123;<span class="attr">name</span>:<span class="string">'name'</span>, <span class="attr">index</span>:<span class="string">'name'</span>, <span class="attr">width</span>: <span class="number">120</span>&#125;, <span class="comment">//設定第二個欄位為name，並且設定寬度為120px。寬度沒設定的話，預設為150(值會再經jqGrid再運算過)[colModel屬性說明](http://www.trirand.com/jqgridwiki/doku.php?id=wiki:colmodel_options)</span></span><br><span class="line">&#123;<span class="attr">name</span>:<span class="string">'url'</span>, <span class="attr">index</span>:<span class="string">'url'</span>, <span class="attr">align</span>:<span class="string">'right'</span>&#125;, <span class="comment">//設定url欄位，這邊是故意設定靠右對齊</span></span><br><span class="line">&#123;<span class="attr">name</span>:<span class="string">'memo'</span>, <span class="attr">index</span>:<span class="string">'memo'</span>, <span class="attr">sortable</span>:<span class="literal">false</span>&#125;</span><br><span class="line">],</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意：colNames和colModel的陣列大小要長的一樣，因為這是一對一欄位的設定。如果不一樣的話，在網頁載入時會出現javascript訊息告知你有問題後，jqGrid是沒有辦法呈現的。</span></span><br><span class="line">pager: <span class="string">'#pager'</span>, <span class="comment">//設定分頁的位置是出現在id為pager的地方。就是在html中的&lt;div id="pager"&gt;&lt;/div&gt;;</span></span><br><span class="line">rowNum: <span class="number">5</span>,  <span class="comment">//設定一開始單頁的筆數，這個欄位值不設定時，預設為一頁20筆。</span></span><br><span class="line">rowList:[<span class="number">5</span>,<span class="number">10</span>,<span class="number">20</span>], <span class="comment">//設定下拉設定一頁顯示筆數，設定採陣列方式，預設空陣列時，畫面上不會出現可設定的下拉選單。</span></span><br><span class="line">sortname: <span class="string">'id'</span>, <span class="comment">//可以設定一開始載入資料時要使用那個欄位來排序，server-side部分要記得接受名稱為「sortname」的變數名稱來處理</span></span><br><span class="line">sortorder: <span class="string">'asc'</span>, <span class="comment">//可以設定一開始載入資料時要使用那種排序方式，server-side部分要記得接受變數名稱為「sortorder」的值來處理。</span></span><br><span class="line">caption: <span class="string">'===============Grid'</span>, <span class="comment">//設定table的標題名稱，如果不設定的話，則不會出現table title的部分。</span></span><br><span class="line">jsonReader : &#123; <span class="comment">//此段為設定讀取json的時候該讀那個index</span></span><br><span class="line">root: <span class="string">"rows"</span>, <span class="comment">//設定資料欄位陣列是放置在rows這個index之中。</span></span><br><span class="line">page: <span class="string">"page"</span>, <span class="comment">//設定目前是第幾頁</span></span><br><span class="line">total: <span class="string">"total"</span>, <span class="comment">//設定總共有幾頁</span></span><br><span class="line">cell: <span class="string">"cell"</span>, <span class="comment">//設定標示每列資料是放在一個叫cell的index之中。有試過是否可以不設，但是發現資料會顯示不出來。</span></span><br><span class="line">&#125;</span><br><span class="line">&#125; ).navGrid(<span class="string">'#pager'</span>,&#123;<span class="attr">view</span>:<span class="literal">true</span>, <span class="attr">del</span>:<span class="literal">false</span>, <span class="attr">edit</span>: <span class="literal">false</span>&#125;) <span class="comment">//navGrid在這邊的設定是有關於分頁上一些功能導覽的部分。目前範例裡的設定只有設定有顯示，但是不要出現刪除、編輯這二個功能。所以畫面上會出現搜尋以及顯示整筆資料的功能....</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>接下來是json的格式說明，有關xml的部分請見連結：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"total"</span>: <span class="string">"3″, //這是告訴jqGrid共全部共有幾頁</span></span><br><span class="line"><span class="string">"</span>page<span class="string">": "</span><span class="number">1</span>″, <span class="comment">//這是告訴jqGrid目前在第幾頁</span></span><br><span class="line"><span class="string">"records"</span>: <span class="string">"13″, //這是告訴jqGrid總共筆數有多少。有的時候自訂navGrid的時候可以顯示出來。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//接下來是資料列的位部分，顯示資料只要照欄位順列一列一列塞進陣列就可以了</span></span><br><span class="line"><span class="string">"</span>rows<span class="string">" : [</span></span><br><span class="line"><span class="string">&#123;"</span>cell<span class="string">": ["</span><span class="number">1</span><span class="string">", "</span>test1<span class="string">", "</span>http:<span class="comment">//www.yahoo.com.tw", "testmemo"]&#125;,&#123;"cell": ["2", "test2", "http://www.yahoo.com.tw", "test2memo"]&#125;,&#123;"cell": ["3", "abc", "http://www.yam.com.tw", "test12345"]&#125;,&#123;"cell": ["4", "777", "http://heheh", "adfadfaklj"]&#125;,&#123;"cell": ["5", "check name", "adf;lkajdsfklajdf", "memo"]&#125;  ]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>只要在server-side在接收jqGrid的request的時候，產生出這樣格式的json檔案，其實就會將資料顯示上去了。如果json格式出現問題，不見得會出現javascript錯誤，這點要特別注意。為了這個問題，多花了不少debug的時間在上頭…. Orz</p>
+<p>接下來要做的事，就是調整一下CSS</p>
+<p>###5.  調整CSS</p>
+<p>因為自訂繁體中文語系後，會發現一個問題，就是在navigation layer還有header layer的地方，因為高度的問題，字的顯示會很像被切掉一些。為了正確顯示，還是需要解決一下這個問題…..</p>
+<p>(1) 打開css/ui.jqgrid.css檔案</p>
+<p>(2) header layer的高度，請直接搜尋找到「.ui-jqgrid .ui-jqgrid-htable th div」的CSS，將height的值改大。</p>
+<p>(3) navigation layer的地方，每頁筆數的部分可以修改「ui-pg-selbox」的CSS，將height改大一點，比較不會看起來像字被壓在底下。另外就是可以直接鍵入頁數來切換頁面的輸入框，可以修改「ui-pg-input」的CSS將height改大一點，字也不會看起來像被切一半。</p>
+<p>這樣就大致大功告成了。如果有需要修改的可以再繼續處理。</p>
+<p>###總結：</p>
+<p>其實jqGrid基本的功能是顯示資料，另外有其他的功能是需要另外再加掛jqGrid Plugin才能運作。所以其實在使用的時候，官方wiki一開始會先註明是否需要再加其他的plugin的javascript檔，例如：Multi-search (但是這個我一直試不出來，不知道那邊有問題).. 在設定前請記得一定要先看一下jqGrid wiki的說明</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.walile.info/2010/08/19/jquery-gride/" data-id="ck2kl91s1000zix7pgyvac0ww" class="article-share-link">Share</a>
+      
+        <a href="https://blog.walile.info/2010/08/19/jquery-gride/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jQuery-Gride/" rel="tag">jQuery Gride</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/02/21/integration-zend-form-and-jquery-plugin-multiselect2side/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [zend frameowrk]將jQuery plugin - multiselect2side 整合zend_formintegration
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/07/23/phpzend-framework-getting-started-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[php]zend framework 入門 II</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActionScript/" rel="tag">ActionScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache-Ant/" rel="tag">Apache Ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bazzer/" rel="tag">Bazzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS3/" rel="tag">CSS3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Capistrano/" rel="tag">Capistrano</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos/" rel="tag">Centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoffeScript/" rel="tag">CoffeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBIx/" rel="tag">DBIx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dancer2/" rel="tag">Dancer2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/" rel="tag">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FreeBSD/" rel="tag">FreeBSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/" rel="tag">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Laravel/" rel="tag">Laravel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MariaDB/" rel="tag">MariaDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mercurial/" rel="tag">Mercurial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Perl/" rel="tag">Perl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quercus/" rel="tag">Quercus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redmine/" rel="tag">Redmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/" rel="tag">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/" rel="tag">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sybase/" rel="tag">Sybase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vlad/" rel="tag">Vlad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebConf-2013/" rel="tag">WebConf 2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zend-Framework1/" rel="tag">Zend Framework1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery-Gride/" rel="tag">jQuery Gride</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac-os/" rel="tag">mac os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phing/" rel="tag">phing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r-language/" rel="tag">r-language</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/ActionScript/" style="font-size: 10px;">ActionScript</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Apache-Ant/" style="font-size: 10px;">Apache Ant</a> <a href="/tags/Bazzer/" style="font-size: 10px;">Bazzer</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Capistrano/" style="font-size: 10px;">Capistrano</a> <a href="/tags/Centos/" style="font-size: 10px;">Centos</a> <a href="/tags/CoffeScript/" style="font-size: 10px;">CoffeScript</a> <a href="/tags/DBIx/" style="font-size: 10px;">DBIx</a> <a href="/tags/Dancer2/" style="font-size: 10px;">Dancer2</a> <a href="/tags/Django/" style="font-size: 13.33px;">Django</a> <a href="/tags/FTP/" style="font-size: 10px;">FTP</a> <a href="/tags/FreeBSD/" style="font-size: 10px;">FreeBSD</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Java-Spring/" style="font-size: 10px;">Java Spring</a> <a href="/tags/Laravel/" style="font-size: 10px;">Laravel</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/MariaDB/" style="font-size: 10px;">MariaDB</a> <a href="/tags/Mercurial/" style="font-size: 10px;">Mercurial</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Perl/" style="font-size: 16.67px;">Perl</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Quercus/" style="font-size: 10px;">Quercus</a> <a href="/tags/Redmine/" style="font-size: 10px;">Redmine</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 10px;">Ruby on Rails</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a> <a href="/tags/Sybase/" style="font-size: 10px;">Sybase</a> <a href="/tags/Ubuntu/" style="font-size: 13.33px;">Ubuntu</a> <a href="/tags/Vlad/" style="font-size: 10px;">Vlad</a> <a href="/tags/WebConf-2013/" style="font-size: 10px;">WebConf 2013</a> <a href="/tags/Zend-Framework1/" style="font-size: 16.67px;">Zend Framework1</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery-Gride/" style="font-size: 10px;">jQuery Gride</a> <a href="/tags/mac-os/" style="font-size: 13.33px;">mac os</a> <a href="/tags/phing/" style="font-size: 10px;">phing</a> <a href="/tags/r-language/" style="font-size: 10px;">r-language</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">八月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">八月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">八月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">七月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/06/">六月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/01/">一月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/12/">十二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/07/">七月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/06/">六月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/05/">五月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/03/">三月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/02/">二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/01/">一月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">十二月 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/04/perl-dancer2-beginning/">Dancer2與DBIx整合開發環境設定</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/22/larave5-mutiple-database-connection-configuration/">Laravel 5 Multiple Database Connection 設定</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/20/mysql-(mariadb)-duplicate-table-command-notes/">MySQL(MariaDB)相關複製table語法注意</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/22/git-command-notes/">Git指令速記</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/19/frontend-develop-enviornment-configuration/">前端基本環境建置 gulp + gulp-cli + broswer-sync + gulp-less 變更自動同步瀏覽器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Walile (小哇)<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'walile';
+  
+  var disqus_url = 'https://blog.walile.info/2010/08/19/jquery-gride/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

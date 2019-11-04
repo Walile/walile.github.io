@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[zend frameowrk]將jQuery plugin - multiselect2side 整合zend_formintegration | 雜工記錄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="controller之中加入zend_form 1234567891011121314151617	&amp;lt;?php$form = new Zend_Form();        $form-&amp;gt;addElement(new Zend_Form_Element_Multiselect(&amp;apos;demo1&amp;apos;,                        array(&amp;apos;multiOptions&amp;apos;">
+<meta name="keywords" content="Zend Framework1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[zend frameowrk]將jQuery plugin - multiselect2side 整合zend_formintegration">
+<meta property="og:url" content="https:&#x2F;&#x2F;blog.walile.info&#x2F;2011&#x2F;02&#x2F;21&#x2F;integration-zend-form-and-jquery-plugin-multiselect2side&#x2F;index.html">
+<meta property="og:site_name" content="雜工記錄">
+<meta property="og:description" content="controller之中加入zend_form 1234567891011121314151617	&amp;lt;?php$form = new Zend_Form();        $form-&amp;gt;addElement(new Zend_Form_Element_Multiselect(&amp;apos;demo1&amp;apos;,                        array(&amp;apos;multiOptions&amp;apos;">
+<meta property="og:locale" content="zh_tw">
+<meta property="og:updated_time" content="2016-05-24T06:59:47.000Z">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="雜工記錄" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">雜工記錄</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">work notes</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://blog.walile.info"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-integration-zend-form-and-jquery-plugin-multiselect2side" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2011/02/21/integration-zend-form-and-jquery-plugin-multiselect2side/" class="article-date">
+  <time datetime="2011-02-20T21:48:00.000Z" itemprop="datePublished">2011-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [zend frameowrk]將jQuery plugin - multiselect2side 整合zend_formintegration
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <a id="more"></a>
+
+<p>controller之中加入zend_form</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">	</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$form = <span class="keyword">new</span> Zend_Form();</span><br><span class="line">        $form-&gt;addElement(<span class="keyword">new</span> Zend_Form_Element_Multiselect(<span class="string">'demo1'</span>,</span><br><span class="line">                        <span class="keyword">array</span>(<span class="string">'multiOptions'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">                                <span class="string">'1'</span> =&gt; <span class="string">'選項一'</span>,</span><br><span class="line">                                <span class="string">'2'</span> =&gt; <span class="string">'選項二'</span>,</span><br><span class="line">                                <span class="string">'3'</span> =&gt; <span class="string">'選項三'</span>,</span><br><span class="line">                                <span class="string">'4'</span> =&gt; <span class="string">'選項四'</span>,</span><br><span class="line">                                <span class="string">'5'</span> =&gt; <span class="string">'選項五'</span>,</span><br><span class="line">                                <span class="string">'6'</span> =&gt; <span class="string">'選項六'</span>,</span><br><span class="line">                                <span class="string">'7'</span> =&gt; <span class="string">'選項七'</span>,</span><br><span class="line">                                <span class="string">'8'</span> =&gt; <span class="string">'選項八'</span>,</span><br><span class="line">                            )</span><br><span class="line">                )));</span><br><span class="line">        <span class="keyword">$this</span>-&gt;view-&gt;assign(<span class="string">'form'</span>, $form);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在Zend_Form_Element_Multiselect中設定這個項目的名稱(id)為demo1時，其實在html中，就會發現id=”demo1″這樣的屬性。所以，在js實作的時候，只需要</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#demo1″).multiselect2side();</span></span><br></pre></td></tr></table></figure>
+<p>就會直接套上了。其他一些選項的部分，只需要直接在function中設定即可，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"#demo2″).multiselect2side(</span></span><br><span class="line"><span class="string">&#123;</span></span><br><span class="line"><span class="string">    moveOptions: false,</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">);</span></span><br></pre></td></tr></table></figure>
+<p>上例的程式中，選項當moveOptions設定為false的時候，會將排序的選項功能整個拿掉。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://blog.walile.info/2011/02/21/integration-zend-form-and-jquery-plugin-multiselect2side/" data-id="ck2kl91s30013ix7p0o4af7oo" class="article-share-link">Share</a>
+      
+        <a href="https://blog.walile.info/2011/02/21/integration-zend-form-and-jquery-plugin-multiselect2side/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Zend-Framework1/" rel="tag">Zend Framework1</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2011/02/21/about-capistrano/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [capistrano]capistrano心得筆記
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2010/08/19/jquery-gride/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[jQuery]jQuery Gride 使用整理</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ActionScript/" rel="tag">ActionScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Apache-Ant/" rel="tag">Apache Ant</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bazzer/" rel="tag">Bazzer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS3/" rel="tag">CSS3</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Capistrano/" rel="tag">Capistrano</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Centos/" rel="tag">Centos</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CoffeScript/" rel="tag">CoffeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DBIx/" rel="tag">DBIx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dancer2/" rel="tag">Dancer2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FTP/" rel="tag">FTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FreeBSD/" rel="tag">FreeBSD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML/" rel="tag">HTML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java-Spring/" rel="tag">Java Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Laravel/" rel="tag">Laravel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MariaDB/" rel="tag">MariaDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mercurial/" rel="tag">Mercurial</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PHP/" rel="tag">PHP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Perl/" rel="tag">Perl</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Quercus/" rel="tag">Quercus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redmine/" rel="tag">Redmine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby/" rel="tag">Ruby</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ruby-on-Rails/" rel="tag">Ruby on Rails</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scrapy/" rel="tag">Scrapy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Software-Engineering/" rel="tag">Software Engineering</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Sybase/" rel="tag">Sybase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Ubuntu/" rel="tag">Ubuntu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vlad/" rel="tag">Vlad</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebConf-2013/" rel="tag">WebConf 2013</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zend-Framework1/" rel="tag">Zend Framework1</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery-Gride/" rel="tag">jQuery Gride</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mac-os/" rel="tag">mac os</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/phing/" rel="tag">phing</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/r-language/" rel="tag">r-language</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 10px;">AWS</a> <a href="/tags/ActionScript/" style="font-size: 10px;">ActionScript</a> <a href="/tags/Android/" style="font-size: 10px;">Android</a> <a href="/tags/Apache-Ant/" style="font-size: 10px;">Apache Ant</a> <a href="/tags/Bazzer/" style="font-size: 10px;">Bazzer</a> <a href="/tags/CSS3/" style="font-size: 10px;">CSS3</a> <a href="/tags/Capistrano/" style="font-size: 10px;">Capistrano</a> <a href="/tags/Centos/" style="font-size: 10px;">Centos</a> <a href="/tags/CoffeScript/" style="font-size: 10px;">CoffeScript</a> <a href="/tags/DBIx/" style="font-size: 10px;">DBIx</a> <a href="/tags/Dancer2/" style="font-size: 10px;">Dancer2</a> <a href="/tags/Django/" style="font-size: 13.33px;">Django</a> <a href="/tags/FTP/" style="font-size: 10px;">FTP</a> <a href="/tags/FreeBSD/" style="font-size: 10px;">FreeBSD</a> <a href="/tags/HTML/" style="font-size: 10px;">HTML</a> <a href="/tags/Java-Spring/" style="font-size: 10px;">Java Spring</a> <a href="/tags/Laravel/" style="font-size: 10px;">Laravel</a> <a href="/tags/Mac/" style="font-size: 13.33px;">Mac</a> <a href="/tags/MariaDB/" style="font-size: 10px;">MariaDB</a> <a href="/tags/Mercurial/" style="font-size: 10px;">Mercurial</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Perl/" style="font-size: 16.67px;">Perl</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Quercus/" style="font-size: 10px;">Quercus</a> <a href="/tags/Redmine/" style="font-size: 10px;">Redmine</a> <a href="/tags/Ruby/" style="font-size: 10px;">Ruby</a> <a href="/tags/Ruby-on-Rails/" style="font-size: 10px;">Ruby on Rails</a> <a href="/tags/Scrapy/" style="font-size: 10px;">Scrapy</a> <a href="/tags/Software-Engineering/" style="font-size: 10px;">Software Engineering</a> <a href="/tags/Sybase/" style="font-size: 10px;">Sybase</a> <a href="/tags/Ubuntu/" style="font-size: 13.33px;">Ubuntu</a> <a href="/tags/Vlad/" style="font-size: 10px;">Vlad</a> <a href="/tags/WebConf-2013/" style="font-size: 10px;">WebConf 2013</a> <a href="/tags/Zend-Framework1/" style="font-size: 16.67px;">Zend Framework1</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/jQuery-Gride/" style="font-size: 10px;">jQuery Gride</a> <a href="/tags/mac-os/" style="font-size: 13.33px;">mac os</a> <a href="/tags/phing/" style="font-size: 10px;">phing</a> <a href="/tags/r-language/" style="font-size: 10px;">r-language</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">十二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/06/">六月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">五月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">三月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/02/">二月 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06/">六月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/05/">五月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/01/">一月 2013</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/09/">九月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/08/">八月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2012/01/">一月 2012</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/12/">十二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/09/">九月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08/">八月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/04/">四月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/03/">三月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/02/">二月 2011</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/08/">八月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/07/">七月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/06/">六月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2010/01/">一月 2010</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/12/">十二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/07/">七月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/06/">六月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/05/">五月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/03/">三月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/02/">二月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2009/01/">一月 2009</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2007/12/">十二月 2007</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/11/04/perl-dancer2-beginning/">Dancer2與DBIx整合開發環境設定</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/22/larave5-mutiple-database-connection-configuration/">Laravel 5 Multiple Database Connection 設定</a>
+          </li>
+        
+          <li>
+            <a href="/2017/12/20/mysql-(mariadb)-duplicate-table-command-notes/">MySQL(MariaDB)相關複製table語法注意</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/22/git-command-notes/">Git指令速記</a>
+          </li>
+        
+          <li>
+            <a href="/2017/06/19/frontend-develop-enviornment-configuration/">前端基本環境建置 gulp + gulp-cli + broswer-sync + gulp-less 變更自動同步瀏覽器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 Walile (小哇)<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'walile';
+  
+  var disqus_url = 'https://blog.walile.info/2011/02/21/integration-zend-form-and-jquery-plugin-multiselect2side/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
